@@ -1,0 +1,9 @@
+---
+dependencies:
+  - role: packages
+    packages:
+      - lxc
+      - bridge-utils
+      - libvirt-bin
+      - debootstrap
+
