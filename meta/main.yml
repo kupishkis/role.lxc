@@ -6,4 +6,6 @@ dependencies:
       - bridge-utils
       - libvirt-bin
       - debootstrap
+      # ansible dependencies
+      - python-pycurl
 
