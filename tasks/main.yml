@@ -27,6 +27,11 @@
   apt_repository: repo='deb http://ftp.lt.debian.org/debian unstable main contrib non-free' state=absent update_cache=yes
   when: package_exist.stdout == 'false'
 
-- name: allow ip packet forwarding
+- name: enable ip packet forwarding permanently
   sudo: true
   lineinfile: dest=/etc/sysctl.conf regexp='#?net.ipv4.ip_forward=.*' line='net.ipv4.ip_forward=1' state=present
+
+- name: enable ip packet forwarding for current session
+  sudo: true
+  shell: echo 1 > /proc/sys/net/ipv4/ip_forward
+
