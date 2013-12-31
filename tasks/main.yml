@@ -3,29 +3,39 @@
   sudo: true
   mount: src=cgroup name=/sys/fs/cgroup fstype=cgroup opts=defaults dump=0 passno=0 state=mounted
 
-- name: check if live-debconfig exists
-  shell: "[ -f /usr/share/lxc/packages/live-debconfig_4.0~alpha31-1_all.deb ] && echo 'true' || echo 'false'"
-  register: package_exist
+#- name: check if live-debconfig exists
+#  shell: "[ -f /usr/share/lxc/packages/live-debconfig_4.0~alpha31-1_all.deb ] && echo 'true' || echo 'false'"
+#  register: package_exist
 
-- name: add live-debconfig source
-  sudo: true
-  apt_repository: repo='deb http://ftp.lt.debian.org/debian unstable main contrib non-free' state=present update_cache=yes
-  when: package_exist.stdout == 'false'
+#- name: add live-debconfig source
+#  sudo: true
+#  apt_repository: repo='deb http://ftp.lt.debian.org/debian unstable main contrib non-free' state=present update_cache=yes
+#  when: package_exist.stdout == 'false'
 
-- name: download the package
-  sudo: true
-  shell: apt-get download live-debconfig chdir=/usr/share/lxc/packages creates=/usr/share/lxc/packages/live-debconfig_4.0~alpha31-1_all.deb
-  when: package_exist.stdout == 'false'
+#- name: download the package
+#  sudo: true
+#  shell: apt-get download live-debconfig chdir=/usr/share/lxc/packages creates=/usr/share/lxc/packages/live-debconfig_4.0~alpha31-1_all.deb
+#  when: package_exist.stdout == 'false'
 
-- name: update lxc to less buggy version
-  sudo: true
-  apt: pkg=lxc state=latest
-  when: package_exist.stdout == 'false'
+#- name: update lxc to less buggy version
+#  sudo: true
+#  apt: pkg=lxc state=latest
+#  when: package_exist.stdout == 'false'
 
-- name: remove live-debconfig source
+#- name: remove live-debconfig source
+#  sudo: true
+#  apt_repository: repo='deb http://ftp.lt.debian.org/debian unstable main contrib non-free' state=absent update_cache=yes
+#  when: package_exist.stdout == 'false'
+
+- name: download debian-wheezy template
   sudo: true
-  apt_repository: repo='deb http://ftp.lt.debian.org/debian unstable main contrib non-free' state=absent update_cache=yes
-  when: package_exist.stdout == 'false'
+  shell: >
+    curl https://raw.github.com/simonvanderveldt/lxc-debian-wheezy-template/master/lxc-debian-wheezy-robvdhoeven > /usr/share/lxc/templates/lxc-debian-wheezy && chmod +x /usr/share/lxc/templates/lxc-debian-wheezy
+    creates=/usr/share/lxc/templates/lxc-debian-wheezy
+
+- name: ensure auto loading directory exist
+  sudo: true
+  file: path=/etc/lxc/auto state=directory
 
 - name: enable ip packet forwarding permanently
   sudo: true
