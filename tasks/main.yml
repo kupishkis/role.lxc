@@ -37,11 +37,3 @@
   sudo: true
   file: path=/etc/lxc/auto state=directory
 
-- name: enable ip packet forwarding permanently
-  sudo: true
-  lineinfile: dest=/etc/sysctl.conf regexp='#?net.ipv4.ip_forward=.*' line='net.ipv4.ip_forward=1' state=present
-
-- name: enable ip packet forwarding for current session
-  sudo: true
-  shell: echo 1 > /proc/sys/net/ipv4/ip_forward
-
