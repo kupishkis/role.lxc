@@ -30,7 +30,7 @@
 - name: download debian-wheezy template
   sudo: true
   shell: >
-    curl https://raw.github.com/simonvanderveldt/lxc-debian-wheezy-template/master/lxc-debian-wheezy-robvdhoeven > /usr/share/lxc/templates/lxc-debian-wheezy && chmod +x /usr/share/lxc/templates/lxc-debian-wheezy
+    curl https://raw.githubusercontent.com/simonvanderveldt/lxc-debian-wheezy-template/master/lxc-debian-wheezy-robvdhoeven > /usr/share/lxc/templates/lxc-debian-wheezy && chmod +x /usr/share/lxc/templates/lxc-debian-wheezy
     creates=/usr/share/lxc/templates/lxc-debian-wheezy
 
 - name: ensure auto loading directory exist
