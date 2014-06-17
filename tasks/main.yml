@@ -37,3 +37,7 @@
   sudo: true
   file: path=/etc/lxc/auto state=directory
 
+- name: download ubuntu lxc template
+  sudo: true
+  get_url: url='http://pkg.callcenter.lamoda.ru/lxc/lxc-ubuntu' dest='/usr/share/lxc/templates' mode=0755
+
