@@ -1,4 +1,8 @@
 ---
+- name: add cgroup binaries
+  sudo: true
+  apt: pkg=cgroup-bin
+
 - name: ensure cgroup is correctly mounted
   sudo: true
   mount: src=cgroup name=/sys/fs/cgroup fstype=cgroup opts=defaults dump=0 passno=0 state=mounted
