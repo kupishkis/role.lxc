@@ -3,11 +3,6 @@
   sudo: true
   apt: pkg=cgroup-bin
 
-- name: ensure cgroup is correctly mounted
-  sudo: true
-  mount: src=cgroup name=/sys/fs/cgroup fstype=cgroup opts=defaults dump=0 passno=0 state=mounted
-
 - name: ensure auto loading directory exist
   sudo: true
   file: path=/etc/lxc/auto state=directory
-
